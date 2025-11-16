@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My E-Commerce Marketplace</title>
@@ -97,8 +100,41 @@
                 </div>
             </div>
         </div>
+        <div id="react-offer"></div>
     </footer>
+    
 
     <script src="Shop.js"></script>
+    <script type="text/babel">
+
+function OfferTimer() {
+  const [seconds, setSeconds] = React.useState(30);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((s) => s > 0 ? s - 1 : 0);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{
+      background: '#3AA4C8',
+      padding: '10px',
+      color: 'white',
+      borderRadius: '10px',
+      width: '250px',
+      margin: '20px auto',
+      fontWeight: 'bold'
+    }}>
+      ⏳ Limited Offer Ends In: {seconds} sec
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('react-offer')).render(<OfferTimer />);
+
+</script>
 </body>
 </html>
